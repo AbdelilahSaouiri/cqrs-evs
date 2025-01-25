@@ -1,0 +1,21 @@
+services:
+  axon-server:
+    image: axoniq/axonserver:2024.1.4-jdk-17-nonroot
+    container_name: axon-server
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+    volumes:
+     - axonserver-data:/data
+     - axonserver-events:/eventdata
+    restart: always
+    environment:
+      AXONIQ_AXONSERVER_NAME: "axon-server"
+      AXONIQ_AXONSERVER_HOSTNAME: "localhost"
+      AXONIQ_AXONSERVER_DEVMODE_ENABLED: "true"
+
+volumes:
+  axonserver-data:
+    driver: local
+  axonserver-events:
+    driver: local
