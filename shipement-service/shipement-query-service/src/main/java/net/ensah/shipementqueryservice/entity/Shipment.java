@@ -1,5 +1,6 @@
 package net.ensah.shipementqueryservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +19,7 @@ public class Shipment {
     private  String senderName;
     private  String recipientName;
     private  String recipientAddress;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private  LocalDate deliveryDate;
     private  String recipientPhoneNumber;
     private int weight;

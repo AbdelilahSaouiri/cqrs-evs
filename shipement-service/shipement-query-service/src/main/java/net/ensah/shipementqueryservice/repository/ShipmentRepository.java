@@ -12,4 +12,6 @@ public interface ShipmentRepository  extends JpaRepository<Shipment,String> {
 
 
      @NotNull Optional<Shipment> findById(String id);
+
+     Optional<Shipment>  findByRecipientPhoneNumber(String phoneNumber);
 }

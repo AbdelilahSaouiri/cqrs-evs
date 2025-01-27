@@ -2,6 +2,7 @@ package net.ensah.shipementqueryservice.service;
 
 import net.ensah.queries.GetAllShipmentsQuery;
 import net.ensah.queries.GetShipmentById;
+import net.ensah.queries.GetShipmentByRecipientPhoneNumber;
 import net.ensah.shipementqueryservice.entity.Shipment;
 import net.ensah.shipementqueryservice.repository.ShipmentRepository;
 import org.axonframework.queryhandling.QueryHandler;
@@ -29,6 +30,11 @@ public class ShipmentQueryHandler {
     @QueryHandler
     public Shipment getShipmentById(GetShipmentById query){
         return shipmentRepository.findById(query.getId()).orElseThrow(()-> new RuntimeException("shipment not found !"));
+    }
+
+    @QueryHandler
+    public Shipment getChipmentByRecipientPhoneNumber(GetShipmentByRecipientPhoneNumber query){
+        return shipmentRepository.findByRecipientPhoneNumber(query.getPhoneNumber()).orElseThrow(()-> new RuntimeException("shipment not found !"));
     }
 
 }

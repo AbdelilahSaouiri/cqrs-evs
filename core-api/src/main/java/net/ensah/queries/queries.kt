@@ -1,7 +1,14 @@
 package net.ensah.queries
 
-class GetAllShipmentsQuery {}
+data class GetAllShipmentsQuery (
+    val page:Int,
+    val size:Int
+)
 
 data class GetShipmentById(
     val id:String,
-);
+)
+
+data class GetShipmentByRecipientPhoneNumber(
+    val phoneNumber:String,
+)
