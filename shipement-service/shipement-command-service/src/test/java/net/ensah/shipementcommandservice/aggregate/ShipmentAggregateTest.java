@@ -142,14 +142,46 @@ class ShipmentAggregateTest {
 
     @Test
     void shouldThrowExceptionIfShipmentCommandDelivered(){
+        ShipmentCreatedEvent event= new ShipmentCreatedEvent(
+                "shipment127",
+                "abdelilah",
+                "mohamed",
+                "khemisset",
+                "+212612131415",
+                ShipmentStatus.DELIVERED,
+                10,
+                Location.WAREHOUSE
+        );
         ShipmentCancelledEvent cancelledEvent= new ShipmentCancelledEvent(
                 "shipment127",
                 ShipmentStatus.DELIVERED);
         CancelShipmentCommand cancelShipmentCommand=new CancelShipmentCommand("shipment127");
-        fixture.given(cancelledEvent)
+        fixture.given(event)
                 .when(cancelShipmentCommand)
-                .expectException(CancelShipmentException.class);
-//                .expectExceptionMessage("Cannot cancel a delivered shipment.");
+                .expectException(CancelShipmentException.class)
+                .expectExceptionMessage("Cannot cancel a delivered shipment.");
+    }
+
+    @Test
+    void shouldCancelShipment(){
+        ShipmentCreatedEvent event= new ShipmentCreatedEvent(
+                "shipment127",
+                "abdelilah",
+                "mohamed",
+                "khemisset",
+                "+212612131415",
+                ShipmentStatus.IN_PROGRESS,
+                10,
+                Location.WAREHOUSE
+        );
+        ShipmentCancelledEvent cancelledEvent= new ShipmentCancelledEvent(
+                "shipment127",
+                ShipmentStatus.CANCELLED);
+        CancelShipmentCommand cancelShipmentCommand=new CancelShipmentCommand("shipment127");
+        fixture.given(event)
+                .when(cancelShipmentCommand)
+                .expectEvents(cancelledEvent);
+
     }
 
 

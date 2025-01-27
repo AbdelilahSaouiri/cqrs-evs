@@ -120,7 +120,7 @@ public class ShipmentAggregate {
             } else {
                 apply(new ShipmentCancelledEvent(command.getId(), ShipmentStatus.CANCELLED));
             }
-        } catch (IllegalStateException e) {
+        } catch (CancelShipmentException e) {
             log.error("Error while processing CancelShipmentCommand for shipment ID: {}. Message: {}", command.getId(), e.getMessage());
             throw e;
         }
@@ -147,7 +147,7 @@ public class ShipmentAggregate {
     public void on(ShipmentCancelledEvent event) {
         log.info("shipmentCancelledEvent  received : {}", event.getId());
         this.id= event.getId();
-        this.cancelled = true;
         this.status = ShipmentStatus.CANCELLED;
+        this.cancelled=true;
     }
 }
