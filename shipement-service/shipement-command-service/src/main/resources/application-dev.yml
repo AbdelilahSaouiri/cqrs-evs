@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: shipment-command-service
+  cloud:
+    discovery:
+      enabled: true
+server:
+  port: 8091
+eureka:
+  instance:
+    prefer-ip-address: true
+axon:
+  axonserver:
+    servers: localhost
+    enabled: true
+  serializer:
+      general: jackson
+      messages: jackson
+      events: jackson

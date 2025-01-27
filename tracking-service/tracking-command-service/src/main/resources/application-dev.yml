@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: tracking-command-service
+  cloud:
+    discovery:
+      enabled: true
+server:
+  port: 8093
+eureka:
+  instance:
+    prefer-ip-address: true
+axon:
+  axonserver:
+    servers: localhost
+    enabled: true
+  serializer:
+    general: jackson

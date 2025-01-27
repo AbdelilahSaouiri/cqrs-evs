@@ -5,5 +5,4 @@ public enum Location {
     CURRENT_ADDRESS,
     WAREHOUSE,
 
-
 }

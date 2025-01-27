@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: tracking-query-service
+  cloud:
+    discovery:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:tracking_db
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+server:
+  port: 8094
+eureka:
+  instance:
+    prefer-ip-address: true
+axon:
+  axonserver:
+    servers: localhost
+    enabled: true
+  serializer:
+    general: jackson

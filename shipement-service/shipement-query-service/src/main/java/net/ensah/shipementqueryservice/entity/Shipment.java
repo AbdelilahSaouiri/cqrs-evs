@@ -1,24 +1,72 @@
 package net.ensah.shipementqueryservice.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.*;
+import net.ensah.enums.Location;
+import net.ensah.enums.ShipmentStatus;
 
 import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor   @Getter
+@AllArgsConstructor @NoArgsConstructor
 public class Shipment {
     @Id
     private String id;
     private  String senderName;
-    private  String receiverName;
-    private  String receiverAddress;
-    private  String receiverPhoneNumber;
-    private  String deliveryDate;
+    private  String recipientName;
+    private  String recipientAddress;
+    private  LocalDate deliveryDate;
+    private  String recipientPhoneNumber;
     private int weight;
-    private  String status;
+    @Enumerated(EnumType.STRING)
+    private Location location;
     private  LocalDate createAt;
+    @Enumerated(EnumType.STRING)
+    private ShipmentStatus  status;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public String getRecipientAddress() {
+        return recipientAddress;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public String getRecipientPhoneNumber() {
+        return recipientPhoneNumber;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public LocalDate getCreateAt() {
+        return createAt;
+    }
+
+    public ShipmentStatus getStatus() {
+        return status;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -28,31 +76,35 @@ public class Shipment {
         this.senderName = senderName;
     }
 
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
     }
 
-    public void setReceiverAddress(String receiverAddress) {
-        this.receiverAddress = receiverAddress;
+    public void setRecipientAddress(String recipientAddress) {
+        this.recipientAddress = recipientAddress;
     }
 
-    public void setReceiverPhoneNumber(String receiverPhoneNumber) {
-        this.receiverPhoneNumber = receiverPhoneNumber;
-    }
-
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(LocalDate deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public void setRecipientPhoneNumber(String recipientPhoneNumber) {
+        this.recipientPhoneNumber = recipientPhoneNumber;
     }
 
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public void setCreateAt(LocalDate createAt) {
         this.createAt = createAt;
+    }
+
+    public void setStatus(ShipmentStatus status) {
+        this.status = status;
     }
 }

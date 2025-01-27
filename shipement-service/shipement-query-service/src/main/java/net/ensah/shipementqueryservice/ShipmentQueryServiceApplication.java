@@ -8,16 +8,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ShipementQueryServiceApplication {
+public class ShipmentQueryServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShipementQueryServiceApplication.class, args);
+        SpringApplication.run(ShipmentQueryServiceApplication.class, args);
     }
 
     @Bean
     CommandBus commandBus() {
         return SimpleCommandBus.builder().build();
     }
+
 
 
 

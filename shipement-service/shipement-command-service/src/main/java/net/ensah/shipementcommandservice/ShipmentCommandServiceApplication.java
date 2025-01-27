@@ -16,7 +16,6 @@ public class ShipmentCommandServiceApplication {
 
     @Bean
     CommandBus commandBus() {
-
         return SimpleCommandBus.builder().build();
     }
 }
