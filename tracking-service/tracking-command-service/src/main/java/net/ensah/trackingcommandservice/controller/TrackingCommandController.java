@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/api/v1/tracking")
+@RequestMapping("/api/v1/command/tracking")
 public class TrackingCommandController {
 
     private final CommandGateway commandGateway;

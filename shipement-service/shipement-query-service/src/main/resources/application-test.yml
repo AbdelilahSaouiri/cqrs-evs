@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: shipment-query-service-test
+  cloud:
+    discovery:
+      enabled: false
+  datasource:
+    url: jdbc:h2:mem:shipment_test_db
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+server:
+  port: 8082
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#axon:
+#  axonserver:
+#    servers: localhost
+#    enabled: true
+#  serializer:
+#    general: jackson
+#    messages: jackson
+#    events: jackson

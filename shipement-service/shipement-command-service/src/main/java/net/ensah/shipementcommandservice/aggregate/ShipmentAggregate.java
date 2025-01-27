@@ -125,6 +125,7 @@ public class ShipmentAggregate {
 
     @EventSourcingHandler
     public void on(ShipmentCancelledEvent event) {
+        log.info("shipmentCancelledEvent  received : {}", event.getId());
         this.cancelled = true;
         this.status = ShipmentStatus.CANCELLED;
     }

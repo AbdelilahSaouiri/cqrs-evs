@@ -9,6 +9,7 @@ import net.ensah.shipementqueryservice.repository.ShipmentRepository;
 import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
@@ -18,9 +19,11 @@ public class ShipmentServiceEventHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ShipmentServiceEventHandler.class);
     private final ShipmentRepository shipmentRepository;
+    private final InfoEndpoint infoEndpoint;
 
-    public ShipmentServiceEventHandler(ShipmentRepository shipmentRepository1) {
+    public ShipmentServiceEventHandler(ShipmentRepository shipmentRepository1, InfoEndpoint infoEndpoint) {
         this.shipmentRepository = shipmentRepository1;
+        this.infoEndpoint = infoEndpoint;
     }
 
     @EventHandler
@@ -55,6 +58,7 @@ public class ShipmentServiceEventHandler {
 
     @EventHandler
     public void on(ShipmentCancelledEvent event) {
+        log.info("ShipmentCancelledEvent: {} ", event);
         Shipment shipment = shipmentRepository.findById(event.getId())
                 .orElseThrow(() -> new IllegalStateException("Shipment not found!"));
         shipment.setStatus(event.getStatus());

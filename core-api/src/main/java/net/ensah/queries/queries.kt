@@ -12,3 +12,7 @@ data class GetShipmentById(
 data class GetShipmentByRecipientPhoneNumber(
     val phoneNumber:String,
 )
+
+data class GetTrackingViewById (
+    val id:String,
+)

@@ -5,13 +5,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import net.ensah.enums.Location;
 import net.ensah.enums.ShipmentStatus;
-
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -19,10 +15,10 @@ import java.time.LocalDate;
 public class TrackingView {
     @Id
     private String id;
+    @Enumerated(EnumType.STRING)
     private ShipmentStatus trackingStatus;
     @Enumerated(EnumType.STRING)
     private Location location;
-    private LocalDate timestamp;
     private boolean archived;
     private LocalDate archivedAt;
 
@@ -38,9 +34,6 @@ public class TrackingView {
         this.location = location;
     }
 
-    public void setTimestamp(LocalDate timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public void setArchived(boolean archived) {
         this.archived = archived;
@@ -62,9 +55,7 @@ public class TrackingView {
         return location;
     }
 
-    public LocalDate getTimestamp() {
-        return timestamp;
-    }
+
 
     public boolean isArchived() {
         return archived;

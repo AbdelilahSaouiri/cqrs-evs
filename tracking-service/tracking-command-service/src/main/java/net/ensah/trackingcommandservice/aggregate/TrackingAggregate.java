@@ -32,8 +32,7 @@ public class TrackingAggregate {
             throw new IllegalStateException("Tracking is already archived.");
         }
         AggregateLifecycle.apply(new TrackingArchivedEvent(
-                command.getId(),
-                command.getArchivedAt()
+                command.getId()
         ));
     }
 

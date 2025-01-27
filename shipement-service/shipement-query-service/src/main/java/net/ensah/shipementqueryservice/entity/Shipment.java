@@ -40,6 +40,9 @@ public class Shipment {
         this.status = status;
     }
 
+    public Shipment(String string) {
+    }
+
     public String getId() {
         return id;
     }
