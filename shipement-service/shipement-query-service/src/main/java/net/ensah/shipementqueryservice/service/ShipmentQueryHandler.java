@@ -6,6 +6,9 @@ import net.ensah.queries.GetShipmentByRecipientPhoneNumber;
 import net.ensah.shipementqueryservice.entity.Shipment;
 import net.ensah.shipementqueryservice.repository.ShipmentRepository;
 import org.axonframework.queryhandling.QueryHandler;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +23,12 @@ public class ShipmentQueryHandler {
     }
 
     @QueryHandler
-    public List<Shipment> getAllShipment(GetAllShipmentsQuery query){
-        System.out.println("****************");
-        System.out.println(shipmentRepository.findAll());
-        System.out.println("******************");
-        return shipmentRepository.findAll();
+    public List<Shipment> getAllShipment(GetAllShipmentsQuery query) {
+        Pageable pageable = PageRequest.of(query.getPage(), query.getSize());
+        Page<Shipment> shipmentsPage = shipmentRepository.findAll(pageable);
+        return shipmentsPage.getContent();
     }
+
 
     @QueryHandler
     public Shipment getShipmentById(GetShipmentById query){

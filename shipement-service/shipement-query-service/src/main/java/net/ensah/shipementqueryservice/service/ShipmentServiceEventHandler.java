@@ -33,7 +33,6 @@ public class ShipmentServiceEventHandler {
              shipment.setWeight(event.getWeight());
              shipment.setRecipientAddress(event.getRecipientAddress());
              shipment.setRecipientPhoneNumber(event.getRecipientPhoneNumber());
-             shipment.setDeliveryDate(event.getDeliveryDate());
              shipment.setStatus(event.getStatus());
              shipment.setLocation(event.getLocation());
              shipment.setCreateAt(LocalDate.now());

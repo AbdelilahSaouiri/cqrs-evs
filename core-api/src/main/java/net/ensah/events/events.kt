@@ -14,7 +14,6 @@ data class ShipmentCreatedEvent(
     val senderName: String,
     val recipientName: String,
     val recipientAddress: String,
-    val deliveryDate: LocalDate,
     val recipientPhoneNumber: String,
     val status: ShipmentStatus,
     val weight: Int,
@@ -39,6 +38,5 @@ data class ShipmentCancelledEvent(
 
 data class TrackingArchivedEvent(
    override val id: String,
-    val archivedAt: LocalDate
 ) : BaseEvent<String>(id)
 

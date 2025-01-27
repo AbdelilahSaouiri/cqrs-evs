@@ -23,21 +23,23 @@ public class ShipmentQueryController {
         this.queryGateway = queryGateway;
     }
 
-    @GetMapping("/{page}/{size}")
+    @GetMapping
     public CompletableFuture<List<Shipment>> getAllShipments(
-            @PathVariable("page") Integer page,
-            @PathVariable("size") Integer size) {
+            @RequestParam(name = "page",defaultValue = "0") Integer page,
+            @RequestParam(value = "size",defaultValue = "2") Integer size) {
         return queryGateway.query(
-                new GetAllShipmentsQuery(page,size), ResponseTypes.multipleInstancesOf(Shipment.class));
+                new GetAllShipmentsQuery(page, size),
+                ResponseTypes.multipleInstancesOf(Shipment.class)
+        );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public CompletableFuture<ResponseEntity<Shipment>> getShipmentById(@PathVariable("id") String id){
         CompletableFuture<Shipment> query = queryGateway.query(new GetShipmentById(id), ResponseTypes.instanceOf(Shipment.class));
         return query.thenApply(ResponseEntity::ok);
     }
 
-    @GetMapping("/{phone}")
+    @GetMapping("/phone/{phone}")
     public CompletableFuture<ResponseEntity<Shipment>> getShipmentByRecipientPhoneNumber(@PathVariable("phone") String phone){
         CompletableFuture<Shipment> query = queryGateway.query(new GetShipmentByRecipientPhoneNumber(phone), ResponseTypes.instanceOf(Shipment.class));
         return query.thenApply(ResponseEntity::ok);

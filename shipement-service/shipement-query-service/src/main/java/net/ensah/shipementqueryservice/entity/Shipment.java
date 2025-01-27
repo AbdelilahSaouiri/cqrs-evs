@@ -1,34 +1,44 @@
 package net.ensah.shipementqueryservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.*;
 import net.ensah.enums.Location;
 import net.ensah.enums.ShipmentStatus;
 
 import java.time.LocalDate;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor
 public class Shipment {
     @Id
     private String id;
     private  String senderName;
     private  String recipientName;
     private  String recipientAddress;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private  LocalDate deliveryDate;
+    @Column(unique = true)
     private  String recipientPhoneNumber;
     private int weight;
     @Enumerated(EnumType.STRING)
     private Location location;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private  LocalDate createAt;
     @Enumerated(EnumType.STRING)
     private ShipmentStatus  status;
 
+
+    public Shipment() {
+    }
+
+    public Shipment(String id, String senderName, String recipientName, String recipientAddress, String recipientPhoneNumber, int weight, Location location, LocalDate createAt, ShipmentStatus status) {
+        this.id = id;
+        this.senderName = senderName;
+        this.recipientName = recipientName;
+        this.recipientAddress = recipientAddress;
+        this.recipientPhoneNumber = recipientPhoneNumber;
+        this.weight = weight;
+        this.location = location;
+        this.createAt = createAt;
+        this.status = status;
+    }
 
     public String getId() {
         return id;
@@ -46,9 +56,6 @@ public class Shipment {
         return recipientAddress;
     }
 
-    public LocalDate getDeliveryDate() {
-        return deliveryDate;
-    }
 
     public String getRecipientPhoneNumber() {
         return recipientPhoneNumber;
@@ -86,9 +93,6 @@ public class Shipment {
         this.recipientAddress = recipientAddress;
     }
 
-    public void setDeliveryDate(LocalDate deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
 
     public void setRecipientPhoneNumber(String recipientPhoneNumber) {
         this.recipientPhoneNumber = recipientPhoneNumber;

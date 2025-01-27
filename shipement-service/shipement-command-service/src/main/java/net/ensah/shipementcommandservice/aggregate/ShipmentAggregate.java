@@ -56,7 +56,6 @@ public class ShipmentAggregate {
                 command.getSenderName(),
                 command.getRecipientName(),
                 command.getRecipientAddress(),
-                LocalDate.now(),
                 command.getRecipientPhoneNumber(),
                 ShipmentStatus.IN_PROGRESS,
                 command.getWeight(),
@@ -71,7 +70,6 @@ public class ShipmentAggregate {
         this.senderName = event.getSenderName();
         this.recipientName = event.getRecipientName();
         this.recipientAddress = event.getRecipientAddress();
-        this.deliveryDate = event.getDeliveryDate();
         this.recipientPhone = event.getRecipientPhoneNumber();
         this.weight= event.getWeight();
         this.status=event.getStatus();
