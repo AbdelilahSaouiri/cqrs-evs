@@ -2,6 +2,7 @@ package net.ensah.shipementqueryservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.ToString;
 import net.ensah.enums.Location;
 import net.ensah.enums.ShipmentStatus;
 
