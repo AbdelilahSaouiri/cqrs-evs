@@ -1,11 +1,15 @@
 package net.ensah.shipementcommandservice.aggregate;
 
+import net.ensah.commands.CancelShipmentCommand;
 import net.ensah.commands.CreateShipmentCommand;
 import net.ensah.commands.UpdateShipmentCommand;
 import net.ensah.enums.Location;
 import net.ensah.enums.ShipmentStatus;
+import net.ensah.events.ShipmentCancelledEvent;
 import net.ensah.events.ShipmentCreatedEvent;
 import net.ensah.events.ShipmentUpdatedEvent;
+import net.ensah.exceptions.CancelShipmentException;
+import net.ensah.exceptions.CreateShipmentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.axonframework.test.aggregate.AggregateTestFixture;
@@ -65,7 +69,7 @@ class ShipmentAggregateTest {
 
          fixture.givenNoPriorActivity()
                  .when(command)
-                 .expectException(IllegalArgumentException.class)
+                 .expectException(CreateShipmentException.class)
                  .expectExceptionMessage("Weight must be greater than zero.");
 
      }
@@ -83,7 +87,7 @@ class ShipmentAggregateTest {
          );
          fixture.givenNoPriorActivity()
                  .when(command)
-                 .expectException(IllegalArgumentException.class)
+                 .expectException(CreateShipmentException.class)
                  .expectExceptionMessage("Invalid phone number format.");
      }
 
@@ -118,7 +122,35 @@ class ShipmentAggregateTest {
                          ShipmentStatus.IN_PROGRESS,
                          "+10987654321",
                          Location.CURRENT_ADDRESS));
-
-
      }
+
+     @Test
+    void shouldThrowExceptionIfShipmentCommandAlreadyCanceled() {
+
+        ShipmentCancelledEvent cancelledEvent = new ShipmentCancelledEvent(
+                "shipment127",
+                ShipmentStatus.CANCELLED
+        );
+
+        CancelShipmentCommand command = new CancelShipmentCommand("shipment127");
+        fixture
+                .given(cancelledEvent)
+                .when(command)
+                .expectException(CancelShipmentException.class)
+                .expectExceptionMessage("Shipment is already cancelled.");
+    }
+
+    @Test
+    void shouldThrowExceptionIfShipmentCommandDelivered(){
+        ShipmentCancelledEvent cancelledEvent= new ShipmentCancelledEvent(
+                "shipment127",
+                ShipmentStatus.DELIVERED);
+        CancelShipmentCommand cancelShipmentCommand=new CancelShipmentCommand("shipment127");
+        fixture.given(cancelledEvent)
+                .when(cancelShipmentCommand)
+                .expectException(CancelShipmentException.class);
+//                .expectExceptionMessage("Cannot cancel a delivered shipment.");
+    }
+
+
 }

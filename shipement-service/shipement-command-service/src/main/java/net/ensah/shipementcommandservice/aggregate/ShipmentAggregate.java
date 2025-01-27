@@ -9,6 +9,9 @@ import net.ensah.enums.ShipmentStatus;
 import net.ensah.events.ShipmentCancelledEvent;
 import net.ensah.events.ShipmentCreatedEvent;
 import net.ensah.events.ShipmentUpdatedEvent;
+import net.ensah.exceptions.CancelShipmentException;
+import net.ensah.exceptions.CreateShipmentException;
+import net.ensah.exceptions.UpdateShipmentException;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -26,7 +29,7 @@ public class ShipmentAggregate {
     private static final Logger log = LoggerFactory.getLogger(ShipmentAggregate.class);
 
     @AggregateIdentifier
-    private String shipmentId;
+    private String id;
     private String senderName;
     private String recipientName;
     private String recipientAddress;
@@ -48,11 +51,11 @@ public class ShipmentAggregate {
         try {
             if (command.getWeight() <= 0) {
                 log.warn("Weight must be greater than zero.");
-                throw new IllegalArgumentException("Weight must be greater than zero.");
+                throw new CreateShipmentException("Weight must be greater than zero.");
             }
             if (!command.getRecipientPhoneNumber().matches("\\+[0-9]{10,13}")) {
                 log.warn("Invalid phone number format.");
-                throw new IllegalArgumentException("Invalid phone number format.");
+                throw new CreateShipmentException("Invalid phone number format.");
             }
             apply(new ShipmentCreatedEvent(
                     command.getId(),
@@ -75,7 +78,7 @@ public class ShipmentAggregate {
     @EventSourcingHandler
     public void on(ShipmentCreatedEvent event) {
        log.info("ShipmentCreatedEvent  received : {}", event.getId());
-        this.shipmentId=event.getId();
+        this.id=event.getId();
         this.senderName = event.getSenderName();
         this.recipientName = event.getRecipientName();
         this.recipientAddress = event.getRecipientAddress();
@@ -83,14 +86,13 @@ public class ShipmentAggregate {
         this.weight= event.getWeight();
         this.status=event.getStatus();
         this.location=event.getLocation();
-
     }
 
     @CommandHandler
     public void handle(UpdateShipmentCommand command) {
         log.info("UpdateShipmentCommand  received  ");
         if (cancelled) {
-            throw new IllegalStateException("Cannot update a cancelled shipment.");
+            throw new UpdateShipmentException("Cannot update a cancelled shipment.");
         }
         apply(new ShipmentUpdatedEvent(
                 command.getId(),
@@ -105,22 +107,30 @@ public class ShipmentAggregate {
 
     @CommandHandler
     public void handle(CancelShipmentCommand command) {
-        log.info("CancelShipmentCommand received for shipment ID: {}", command.getId());
+        try {
+            log.info("CancelShipmentCommand received for shipment ID: {}", command.getId());
 
-        if (this.status == ShipmentStatus.CANCELLED) {
-            throw new IllegalStateException("Shipment is already cancelled.");
+            if (this.status.equals(ShipmentStatus.CANCELLED)) {
+                log.warn("shipment is already cancelled {}", command.getId());
+                throw new CancelShipmentException("Shipment is already cancelled.");
+            }
+            else if (this.status.equals(ShipmentStatus.DELIVERED)) {
+                log.warn("shipment already delivered {}", command.getId());
+                throw new CancelShipmentException("Cannot cancel a delivered shipment.");
+            } else {
+                apply(new ShipmentCancelledEvent(command.getId(), ShipmentStatus.CANCELLED));
+            }
+        } catch (IllegalStateException e) {
+            log.error("Error while processing CancelShipmentCommand for shipment ID: {}. Message: {}", command.getId(), e.getMessage());
+            throw e;
         }
-
-        if (this.status == ShipmentStatus.DELIVERED) {
-            throw new IllegalStateException("Cannot cancel a delivered shipment.");
-        }
-        apply(new ShipmentCancelledEvent(command.getId(), ShipmentStatus.CANCELLED));
     }
+
 
     @EventSourcingHandler
     public void on(ShipmentUpdatedEvent event) {
         log.info("ShipmentUpdatedEvent  received : {}", event.getId());
-        this.shipmentId = event.getId();
+        this.id = event.getId();
         this.senderName = event.getSenderName();
         this.recipientName = event.getRecipientName();
         this.recipientAddress = event.getRecipientAddress();
@@ -128,6 +138,7 @@ public class ShipmentAggregate {
         this.status=event.getShipmentStatus();
         this.location=event.getLocation();
         if (this.status == ShipmentStatus.CANCELLED) {
+            log.warn("Shipment is now marked as CANCELLED.{}",event.getId());
             this.cancelled = true;
         }
     }
@@ -135,6 +146,7 @@ public class ShipmentAggregate {
     @EventSourcingHandler
     public void on(ShipmentCancelledEvent event) {
         log.info("shipmentCancelledEvent  received : {}", event.getId());
+        this.id= event.getId();
         this.cancelled = true;
         this.status = ShipmentStatus.CANCELLED;
     }
