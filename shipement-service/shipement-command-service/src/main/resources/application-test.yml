@@ -1,0 +1,11 @@
+server:
+  port: 8091
+
+axon:
+  axonserver:
+    servers: localhost
+    enabled: true
+
+spring:
+  application:
+    name: shipment-command-service

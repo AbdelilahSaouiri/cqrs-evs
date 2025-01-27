@@ -39,29 +39,38 @@ public class ShipmentAggregate {
 
 
     public ShipmentAggregate() {
-        //for axon
+        //for axon framework
     }
 
     @CommandHandler
     public ShipmentAggregate(CreateShipmentCommand command) {
-       log.info("CreateShipmentCommand  received  ");
-        if (command.getWeight() <= 0) {
-            throw new IllegalArgumentException("Weight must be greater than zero.");
+        log.info("CreateShipmentCommand received {}",command.getId());
+        try {
+            if (command.getWeight() <= 0) {
+                log.warn("Weight must be greater than zero.");
+                throw new IllegalArgumentException("Weight must be greater than zero.");
+            }
+            if (!command.getRecipientPhoneNumber().matches("\\+[0-9]{10,13}")) {
+                log.warn("Invalid phone number format.");
+                throw new IllegalArgumentException("Invalid phone number format.");
+            }
+            apply(new ShipmentCreatedEvent(
+                    command.getId(),
+                    command.getSenderName(),
+                    command.getRecipientName(),
+                    command.getRecipientAddress(),
+                    command.getRecipientPhoneNumber(),
+                    ShipmentStatus.IN_PROGRESS,
+                    command.getWeight(),
+                    command.getLocation()
+            ));
+
+        } catch (IllegalArgumentException e) {
+            log.error("Exception during shipment creation: {}", e.getMessage());
+            throw e;
         }
-        if (!command.getRecipientPhoneNumber().matches("\\+?[0-9]{10,13}")) {
-            throw new IllegalArgumentException("Invalid phone number format.");
-        }
-        apply(new ShipmentCreatedEvent(
-                command.getId(),
-                command.getSenderName(),
-                command.getRecipientName(),
-                command.getRecipientAddress(),
-                command.getRecipientPhoneNumber(),
-                ShipmentStatus.IN_PROGRESS,
-                command.getWeight(),
-                command.getLocation()
-        ));
     }
+
 
     @EventSourcingHandler
     public void on(ShipmentCreatedEvent event) {
