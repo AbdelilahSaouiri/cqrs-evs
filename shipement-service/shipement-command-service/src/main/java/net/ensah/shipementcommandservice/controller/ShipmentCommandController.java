@@ -5,10 +5,10 @@ import net.ensah.commands.CancelShipmentCommand;
 import net.ensah.commands.CreateShipmentCommand;
 import net.ensah.commands.UpdateShipmentCommand;
 import net.ensah.dtos.ShipmentRequestDto;
-import net.ensah.shipementcommandservice.aggregate.ShipmentAggregate;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,7 +21,6 @@ import java.util.concurrent.CompletableFuture;
 public class ShipmentCommandController {
 
 
-
     private final CommandGateway commandGateway;
     private static final Logger log = LoggerFactory.getLogger(ShipmentCommandController.class);
 
@@ -30,6 +29,7 @@ public class ShipmentCommandController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public CompletableFuture<String> createNewShipment(@RequestBody ShipmentRequestDto request){
         log.info("Creating new shipment {}",request);
         return commandGateway.send(new CreateShipmentCommand(
@@ -45,6 +45,7 @@ public class ShipmentCommandController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public CompletableFuture<String>  UpdateShipment(@PathVariable String id,
                                                        @RequestBody ShipmentRequestDto request){
         log.info("Updating shipment {}",id);
@@ -59,6 +60,7 @@ public class ShipmentCommandController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public CompletableFuture<String>  CancelShipment(@PathVariable String id){
         log.info("Canceling shipment {}",id);
         return commandGateway.send(new CancelShipmentCommand(id));

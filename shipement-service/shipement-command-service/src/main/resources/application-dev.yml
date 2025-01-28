@@ -6,9 +6,13 @@ spring:
       enabled: true
   security:
     oauth2:
-      resource server:
+      resourceserver:
         jwt:
-          issuer-uri: =http://localhost:8080/realms/ang-sec
+          issuer-uri: http://localhost:8080/realms/cqrs-event-sourcing
+      authorizationserver:
+        endpoint:
+          jwk-set-uri: http://localhost:8080/realms/cqrs-event-sourcing/protocol/openid-connect/certs
+
 server:
   port: 8091
 eureka:
@@ -23,5 +27,3 @@ axon:
       messages: jackson
       events: jackson
 
-  #spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8080/realms/ang-sec
-  #spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri=http://localhost:8080/realms/ang-sec/protocol/openid-connect/certs
