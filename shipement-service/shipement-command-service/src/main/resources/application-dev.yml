@@ -4,6 +4,11 @@ spring:
   cloud:
     discovery:
       enabled: true
+  security:
+    oauth2:
+      resource server:
+        jwt:
+          issuer-uri: =http://localhost:8080/realms/ang-sec
 server:
   port: 8091
 eureka:
@@ -17,3 +22,6 @@ axon:
       general: jackson
       messages: jackson
       events: jackson
+
+  #spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8080/realms/ang-sec
+  #spring.security.oauth2.authorizationserver.endpoint.jwk-set-uri=http://localhost:8080/realms/ang-sec/protocol/openid-connect/certs
