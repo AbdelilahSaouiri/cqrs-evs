@@ -33,8 +33,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth->auth.requestMatchers("/h2-console/**","/swagger-ui/**").permitAll())
-                .authorizeHttpRequests(auth->auth.anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .oauth2ResourceServer(oauth2->oauth2.jwt(
                         jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter)
                 ))
