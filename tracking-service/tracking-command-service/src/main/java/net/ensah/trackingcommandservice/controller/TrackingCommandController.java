@@ -4,6 +4,7 @@ package net.ensah.trackingcommandservice.controller;
 import net.ensah.commands.ArchiveTrackingCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class TrackingCommandController {
     }
 
     @PatchMapping("/{id}/archive")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public CompletableFuture<ResponseEntity<String>> archiveTracking(@PathVariable String id) {
 
         return commandGateway.send(new ArchiveTrackingCommand(id, LocalDate.now()));
