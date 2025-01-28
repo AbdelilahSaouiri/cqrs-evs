@@ -33,10 +33,3 @@ axon:
     general: jackson
     messages: jackson
     events: jackson
-
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-    display-request-duration: true
-    operationsSorter: method
-    disable-swagger-default-url: true
