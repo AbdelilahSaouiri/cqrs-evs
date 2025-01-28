@@ -12,6 +12,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/cqrs-event-sourcing
+      authorizationserver:
+        endpoint:
+          jwk-set-uri: http://localhost:8080/realms/cqrs-event-sourcing/protocol/openid-connect/certs
 server:
   port: 8094
 eureka:
@@ -23,3 +31,4 @@ axon:
     enabled: true
   serializer:
     general: jackson
+
