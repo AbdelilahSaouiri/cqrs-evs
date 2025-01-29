@@ -38,6 +38,7 @@ public class TrackingAggregate {
 
     @EventSourcingHandler
     public void on(TrackingArchivedEvent event) {
+        this.id=event.getId();
         this.archived = true;
     }
 }

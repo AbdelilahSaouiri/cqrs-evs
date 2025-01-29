@@ -7,10 +7,13 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/AbdelilahSaouiri/config-repo-cqrs-evs
-          username: AbdelilahSaouiri
-          password: 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
-          default-label: config
+          uri: ${GIT_URI}
+          username: ${GIT_USER}
+          password: ${GIT_PASSWORD}
+          default-label: ${GIT_LABEL}
+          clone-on-start: true
+  profiles:
+    active: dev
 server:
   port: 9999
 management:
