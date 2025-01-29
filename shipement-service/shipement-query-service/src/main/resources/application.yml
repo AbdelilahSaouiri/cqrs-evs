@@ -1,4 +1,14 @@
 spring:
+  application:
+      name: shipment-query-service
   profiles:
     active: dev
+  cloud:
+    config:
+      enabled: true
+  config:
+    import: optional:configserver:${CONFIG_SERVICE_URL:http://localhost:9999}
+server:
+  port: 8092
+
 

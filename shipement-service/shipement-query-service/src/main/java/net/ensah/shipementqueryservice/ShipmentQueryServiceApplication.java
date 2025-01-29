@@ -9,11 +9,13 @@ import org.axonframework.commandhandling.SimpleCommandBus;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 
 import static com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping.OBJECT_AND_NON_CONCRETE;
 
 @SpringBootApplication
+@RefreshScope
 public class ShipmentQueryServiceApplication {
 
     public static void main(String[] args) {
