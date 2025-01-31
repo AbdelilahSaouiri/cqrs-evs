@@ -1,4 +1,4 @@
-package net.ensah.enums;
+package net.ensah.coreapi.enums;
 
 public enum ShipmentStatus {
     IN_PROGRESS,

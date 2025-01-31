@@ -1,7 +1,7 @@
 package net.ensah.trackingqueryservice.service;
 
 
-import net.ensah.queries.GetTrackingViewById;
+import net.ensah.coreapi.queries.GetTrackingViewById;
 import net.ensah.trackingqueryservice.entity.TrackingView;
 import net.ensah.trackingqueryservice.repository.TrackingRepository;
 import org.axonframework.queryhandling.QueryHandler;

@@ -1,10 +1,9 @@
 package net.ensah.shipementcommandservice.controller;
 
-import net.ensah.commands.CancelShipmentCommand;
-import net.ensah.commands.CreateShipmentCommand;
-import net.ensah.commands.UpdateShipmentCommand;
-import net.ensah.dtos.ShipmentRequestDto;
-import net.ensah.enums.Location;
+import net.ensah.coreapi.commands.CancelShipmentCommand;
+import net.ensah.coreapi.commands.CreateShipmentCommand;
+import net.ensah.coreapi.commands.UpdateShipmentCommand;
+import net.ensah.coreapi.enums.Location;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

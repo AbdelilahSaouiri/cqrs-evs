@@ -6,8 +6,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import net.ensah.enums.Location;
-import net.ensah.enums.ShipmentStatus;
+import net.ensah.coreapi.enums.Location;
+import net.ensah.coreapi.enums.ShipmentStatus;
 import java.time.LocalDate;
 
 @Entity

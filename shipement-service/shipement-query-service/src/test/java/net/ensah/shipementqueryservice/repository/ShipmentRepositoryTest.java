@@ -1,7 +1,7 @@
 package net.ensah.shipementqueryservice.repository;
 
-import net.ensah.enums.Location;
-import net.ensah.enums.ShipmentStatus;
+import net.ensah.coreapi.enums.Location;
+import net.ensah.coreapi.enums.ShipmentStatus;
 import net.ensah.shipementqueryservice.entity.Shipment;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

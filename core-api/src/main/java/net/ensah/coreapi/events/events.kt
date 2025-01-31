@@ -1,8 +1,7 @@
-package net.ensah.events
+package net.ensah.coreapi.events
 
-import net.ensah.enums.Location
-import net.ensah.enums.ShipmentStatus
-import java.time.LocalDate
+import net.ensah.coreapi.enums.Location
+import net.ensah.coreapi.enums.ShipmentStatus
 
 
 abstract class BaseEvent<T>(
@@ -22,19 +21,19 @@ data class ShipmentCreatedEvent(
 
 
 data class ShipmentUpdatedEvent(
-     override val id:String,
+    override val id:String,
     val senderName:String,
     val recipientName: String,
     val recipientAddress : String,
     val shipmentStatus: ShipmentStatus,
     val recipientPhoneNumber: String,
     val location: Location
-):BaseEvent<String>(id)
+): BaseEvent<String>(id)
 
 data class ShipmentCancelledEvent(
     override val id:String,
-     val status: ShipmentStatus,
-):BaseEvent<String>(id)
+    val status: ShipmentStatus,
+): BaseEvent<String>(id)
 
 data class TrackingArchivedEvent(
    override val id: String,

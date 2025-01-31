@@ -1,8 +1,8 @@
 package net.ensah.shipementqueryservice.service;
 
-import net.ensah.queries.GetAllShipmentsQuery;
-import net.ensah.queries.GetShipmentById;
-import net.ensah.queries.GetShipmentByRecipientPhoneNumber;
+import net.ensah.coreapi.queries.GetAllShipmentsQuery;
+import net.ensah.coreapi.queries.GetShipmentById;
+import net.ensah.coreapi.queries.GetShipmentByRecipientPhoneNumber;
 import net.ensah.shipementqueryservice.entity.Shipment;
 import net.ensah.shipementqueryservice.repository.ShipmentRepository;
 import org.axonframework.queryhandling.QueryHandler;

@@ -2,8 +2,6 @@ spring:
   application:
     name: config-service
   cloud:
-    discovery:
-      enabled: true
     config:
       server:
         git:
@@ -12,6 +10,9 @@ spring:
           password: ${GIT_PASSWORD}
           default-label: ${GIT_LABEL}
           clone-on-start: true
+      enabled: false
+    discovery:
+      enabled: true
   profiles:
     active: dev
 server:
@@ -21,9 +22,27 @@ management:
     web:
       exposure:
         include: "*"
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1
 eureka:
   instance:
     prefer-ip-address: true
   client:
     service-url:
       defaultZone: ${DISCOVERY_SERVICE_URL:http://localhost:8761/eureka}
+logging:
+  pattern:
+    correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

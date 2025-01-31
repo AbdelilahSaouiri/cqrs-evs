@@ -1,9 +1,9 @@
 package net.ensah.shipementqueryservice.service;
 
 
-import net.ensah.events.ShipmentCancelledEvent;
-import net.ensah.events.ShipmentCreatedEvent;
-import net.ensah.events.ShipmentUpdatedEvent;
+import net.ensah.coreapi.events.ShipmentCancelledEvent;
+import net.ensah.coreapi.events.ShipmentCreatedEvent;
+import net.ensah.coreapi.events.ShipmentUpdatedEvent;
 import net.ensah.shipementqueryservice.entity.Shipment;
 import net.ensah.shipementqueryservice.repository.ShipmentRepository;
 import org.axonframework.eventhandling.EventHandler;

@@ -8,7 +8,6 @@
         <artifactId>cqrs-event-driven-architecture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <artifactId>core-api</artifactId>
 
     <properties>

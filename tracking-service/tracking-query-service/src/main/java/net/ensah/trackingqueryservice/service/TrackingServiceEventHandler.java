@@ -1,10 +1,9 @@
 package net.ensah.trackingqueryservice.service;
 
 
-import lombok.extern.slf4j.Slf4j;
-import net.ensah.events.ShipmentCreatedEvent;
-import net.ensah.events.ShipmentUpdatedEvent;
-import net.ensah.events.TrackingArchivedEvent;
+import net.ensah.coreapi.events.ShipmentCreatedEvent;
+import net.ensah.coreapi.events.ShipmentUpdatedEvent;
+import net.ensah.coreapi.events.TrackingArchivedEvent;
 import net.ensah.trackingqueryservice.entity.TrackingView;
 import net.ensah.trackingqueryservice.repository.TrackingRepository;
 import org.axonframework.eventhandling.EventHandler;

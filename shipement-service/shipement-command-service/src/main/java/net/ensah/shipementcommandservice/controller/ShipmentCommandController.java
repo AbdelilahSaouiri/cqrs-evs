@@ -1,10 +1,10 @@
 package net.ensah.shipementcommandservice.controller;
 
 
-import net.ensah.commands.CancelShipmentCommand;
-import net.ensah.commands.CreateShipmentCommand;
-import net.ensah.commands.UpdateShipmentCommand;
-import net.ensah.dtos.ShipmentRequestDto;
+import net.ensah.coreapi.commands.CancelShipmentCommand;
+import net.ensah.coreapi.commands.CreateShipmentCommand;
+import net.ensah.coreapi.commands.UpdateShipmentCommand;
+import net.ensah.coreapi.dtos.ShipmentRequestDTO;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,32 +30,32 @@ public class ShipmentCommandController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public CompletableFuture<String> createNewShipment(@RequestBody ShipmentRequestDto request){
+    public CompletableFuture<String> createNewShipment(@RequestBody ShipmentRequestDTO request){
         log.info("Creating new shipment {}",request);
         return commandGateway.send(new CreateShipmentCommand(
                 UUID.randomUUID().toString(),
-                request.senderName(),
-                request.recipientName(),
-                request.recipientAddress(),
+                request.getSenderName(),
+                request.getRecipientName(),
+                request.getRecipientAddress(),
                 LocalDate.now(),
-                request.recipientPhone(),
-                request.location(),
-                request.weight()
+                request.getRecipientPhone(),
+                request.getLocation(),
+                request.getWeight()
         ));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public CompletableFuture<String>  UpdateShipment(@PathVariable String id,
-                                                       @RequestBody ShipmentRequestDto request){
+                                                       @RequestBody ShipmentRequestDTO request){
         log.info("Updating shipment {}",id);
         return commandGateway.send(new UpdateShipmentCommand(
                 id,
-                request.senderName(),
-                request.recipientName(),
-                request.recipientAddress(),
-                request.recipientPhone(),
-                request.location()
+                request.getSenderName(),
+                request.getRecipientName(),
+                request.getRecipientAddress(),
+                request.getRecipientAddress(),
+                request.getLocation()
                 ));
     }
 

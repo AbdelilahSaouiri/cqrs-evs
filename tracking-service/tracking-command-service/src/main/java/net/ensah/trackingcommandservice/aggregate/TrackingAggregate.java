@@ -1,10 +1,10 @@
 package net.ensah.trackingcommandservice.aggregate;
 
 
-import net.ensah.commands.ArchiveTrackingCommand;
-import net.ensah.enums.Location;
-import net.ensah.enums.ShipmentStatus;
-import net.ensah.events.TrackingArchivedEvent;
+import net.ensah.coreapi.commands.ArchiveTrackingCommand;
+import net.ensah.coreapi.enums.Location;
+import net.ensah.coreapi.enums.ShipmentStatus;
+import net.ensah.coreapi.events.TrackingArchivedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;

@@ -2,16 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>shipement-command-service</module>
-        <module>shipement-query-service</module>
-    </modules>
     <parent>
         <groupId>net.ensah</groupId>
         <artifactId>cqrs-event-driven-architecture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <packaging>pom</packaging>
+    <modules>
+        <module>shipement-command-service</module>
+        <module>shipement-query-service</module>
+    </modules>
     <artifactId>shipement-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>shipement-service</name>

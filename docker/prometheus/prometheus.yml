@@ -1,0 +1,55 @@
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'config_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['config-service:9999']
+        labels:
+          application: 'Config Service Application'
+  - job_name: 'discovery_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['discovery-service:8761']
+        labels:
+          application: 'Discovery Service Application'
+  - job_name: 'gateway_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['gateway-service:8888']
+        labels:
+          application: 'Gateway Service Application'
+  - job_name: 'shipment_command_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['shipment-command-service:8091']
+        labels:
+          application: 'Shipment Command Service Application'
+  - job_name: 'shipment_query_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'shipment-query-service:8092' ]
+        labels:
+          application: 'Shipment Query Service Application'
+  - job_name: 'tracking_command_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'track-command-service:8093' ]
+        labels:
+          application: 'Tracking Command Service Application'
+  - job_name: 'tracking_query_service'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ 'track-query-service:8094' ]
+        labels:
+          application: 'Tracking Query Service Application'
+

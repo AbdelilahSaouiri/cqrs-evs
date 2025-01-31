@@ -1,4 +1,4 @@
-package net.ensah.queries
+package net.ensah.coreapi.queries
 
 data class GetAllShipmentsQuery (
     val page:Int,

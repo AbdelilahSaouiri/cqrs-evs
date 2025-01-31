@@ -1,15 +1,15 @@
 package net.ensah.shipementcommandservice.aggregate;
 
-import net.ensah.commands.CancelShipmentCommand;
-import net.ensah.commands.CreateShipmentCommand;
-import net.ensah.commands.UpdateShipmentCommand;
-import net.ensah.enums.Location;
-import net.ensah.enums.ShipmentStatus;
-import net.ensah.events.ShipmentCancelledEvent;
-import net.ensah.events.ShipmentCreatedEvent;
-import net.ensah.events.ShipmentUpdatedEvent;
-import net.ensah.exceptions.CancelShipmentException;
-import net.ensah.exceptions.CreateShipmentException;
+import net.ensah.coreapi.commands.CancelShipmentCommand;
+import net.ensah.coreapi.commands.CreateShipmentCommand;
+import net.ensah.coreapi.commands.UpdateShipmentCommand;
+import net.ensah.coreapi.enums.Location;
+import net.ensah.coreapi.enums.ShipmentStatus;
+import net.ensah.coreapi.events.ShipmentCancelledEvent;
+import net.ensah.coreapi.events.ShipmentCreatedEvent;
+import net.ensah.coreapi.events.ShipmentUpdatedEvent;
+import net.ensah.coreapi.exceptions.CancelShipmentException;
+import net.ensah.coreapi.exceptions.CreateShipmentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.axonframework.test.aggregate.AggregateTestFixture;

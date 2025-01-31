@@ -1,13 +1,13 @@
-package net.ensah.exceptions;
+package net.ensah.coreapi.exceptions;
 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UpdateShipmentException extends RuntimeException{
+public class CreateShipmentException extends RuntimeException{
 
-    public UpdateShipmentException(String message){
+    public CreateShipmentException(String message){
         super(message);
     }
 }

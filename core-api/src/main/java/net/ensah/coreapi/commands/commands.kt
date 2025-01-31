@@ -1,9 +1,7 @@
-package net.ensah.commands
+package net.ensah.coreapi.commands
 
-import net.ensah.enums.Location
-import net.ensah.enums.ShipmentStatus
+import net.ensah.coreapi.enums.Location
 import org.axonframework.modelling.command.TargetAggregateIdentifier
-import java.time.Instant
 import java.time.LocalDate
 
 abstract class BaseCommand<T>(
@@ -17,9 +15,9 @@ data class CreateShipmentCommand(
     val recipientAddress: String,
     val deliveryDate: LocalDate,
     val recipientPhoneNumber: String,
-    val location:Location,
+    val location: Location,
     val weight: Int
-):BaseCommand<String>(id)
+): BaseCommand<String>(id)
 
 data class UpdateShipmentCommand(
     override val id:String,
@@ -27,13 +25,13 @@ data class UpdateShipmentCommand(
     val recipientName: String,
     val recipientAddress : String,
     val recipientPhoneNumber: String,
-    val location:Location
+    val location: Location
 
-):BaseCommand<String>(id)
+): BaseCommand<String>(id)
 
 data class CancelShipmentCommand(
     override val id:String,
-):BaseCommand<String>(id)
+): BaseCommand<String>(id)
 
 data class ArchiveTrackingCommand(
     override val id: String,
@@ -41,9 +39,3 @@ data class ArchiveTrackingCommand(
 ) : BaseCommand<String>(id)
 
 
-//data class UpdateTrackingStatusCommand(
-//    override val id: String,
-//    val trackingStatus: ShipmentStatus,
-//    val location: Location,
-//    val timestamp: Instant
-//) : BaseCommand<String>(id)

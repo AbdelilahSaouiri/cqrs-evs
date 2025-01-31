@@ -1,7 +1,7 @@
 package net.ensah.trackingcommandservice.controller;
 
 
-import net.ensah.commands.ArchiveTrackingCommand;
+import net.ensah.coreapi.commands.ArchiveTrackingCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
