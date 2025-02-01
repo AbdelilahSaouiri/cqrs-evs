@@ -2,10 +2,12 @@ spring:
   application:
     name: tracking-query-service
   profiles:
-    active: dev
+    active: test
   cloud:
     config:
-      enabled: true
+      enabled: false
+      discovery:
+        enabled: false
   config:
     import: optional:configserver:${CONFIG_SERVICE_URL:http://localhost:9999}
 server:
