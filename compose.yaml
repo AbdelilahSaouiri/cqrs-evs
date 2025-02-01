@@ -35,3 +35,143 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=password
+  discovery-service:
+    build: ./discovery-service
+    container_name: discovery-service
+    depends_on:
+      - tempo
+      - loki
+    restart: always
+    ports:
+      - "8761:8761"
+  config-service:
+    build: ./config-service
+    container_name: config-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+      - GIT_URI=
+      - GIT_USER=
+      - GIT_PASSWORD=
+      - GIT_LABEL=config
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "9999:9999"
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "8888:8888"
+  shipment-command-service:
+    build: ./shipement-service/shipement-command-service
+    container_name: shipment-command-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "8091:8091"
+  shipment-query-service:
+    build: ./shipement-service/shipement-query-service
+    container_name: shipment-query-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "8092:8092"
+  track-command-service:
+    build: ./tracking-service/tracking-command-service
+    container_name: track-command-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "8093:8093"
+  track-query-service:
+    build: ./tracking-service/tracking-query-service
+    container_name: track-query-service
+    environment:
+      - DISCOVERY_SERVICE_URL=http://discovery-service:8761/eureka
+    depends_on:
+      - discovery-service
+    restart: always
+    ports:
+      - "8094:8094"
+  axon-server:
+    image: axoniq/axonserver:2024.1.4-jdk-17-nonroot
+    container_name: axon-server
+    ports:
+      - '8024:8024'
+      - '8124:8124'
+    volumes:
+      - axonserver-data:/data
+      - axonserver-events:/eventdata
+    restart: always
+    environment:
+      AXONIQ_AXONSERVER_NAME: "axon-server"
+      AXONIQ_AXONSERVER_HOSTNAME: "localhost"
+      AXONIQ_AXONSERVER_DEVMODE_ENABLED: "true"
+  postgres-service:
+    image: postgres
+    container_name: postgres-service
+    volumes:
+      - postgres_data_enset:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak_enset_db
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: k1234
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    healthcheck:
+      test: "exit 0"
+  pgadmin4:
+      image: dpage/pgadmin4
+      container_name: pgadmin4
+      restart: always
+      ports:
+        - "8888:80"
+      environment:
+        PGADMIN_DEFAULT_EMAIL: med@gmail.com
+        PGADMIN_DEFAULT_PASSWORD: azer
+      volumes:
+        - pgadmin_data:/var/lib/pgadmin
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-service:5432/keycloak_enset_db
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: k1234
+      KEYCLOAK_ADMIN: admin
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      - start-dev
+    restart: always
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    depends_on:
+      - postgres-service
+volumes:
+    data:
+      driver: local
+    axonserver-data:
+      driver: local
+    axonserver-events:
+      driver: local

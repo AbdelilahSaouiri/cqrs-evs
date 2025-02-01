@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import net.ensah.coreapi.enums.Location;
 import net.ensah.coreapi.enums.ShipmentStatus;
+
 import java.time.LocalDate;
 
 @Entity

@@ -8,8 +8,6 @@ import net.ensah.coreapi.enums.ShipmentStatus;
 import net.ensah.coreapi.events.ShipmentCancelledEvent;
 import net.ensah.coreapi.events.ShipmentCreatedEvent;
 import net.ensah.coreapi.events.ShipmentUpdatedEvent;
-import net.ensah.coreapi.exceptions.CancelShipmentException;
-import net.ensah.coreapi.exceptions.CreateShipmentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.axonframework.test.aggregate.AggregateTestFixture;
