@@ -1,6 +1,6 @@
 ﻿# 📦 ParcelTrack: Delivery Tracking System Based on CQRS and Event Sourcing
 
-## 📌 Introduction
+## 📌 Introduction 
 
 **ParcelTrack** is a **delivery tracking platform** based on **CQRS (Command Query Responsibility Segregation)** and **Event Sourcing** principles.  
 It follows an **event-driven microservices architecture** using **Axon Framework**, ensuring optimal **scalability, traceability, and consistency**.
