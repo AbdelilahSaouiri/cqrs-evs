@@ -23,7 +23,6 @@ The system consists of **multiple microservices**:
 
 ![Discovery Service](./images/eureka.png)
 
-![Discovery Service](./images/eureka.png)
 
 
 ## 🚀 Technologies Used
